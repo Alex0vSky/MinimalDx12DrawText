@@ -225,7 +225,7 @@ struct Main {
 			nbFrames++;
 			wchar_t buf64[ 64 + 1 ] = { };
 			if ( float diff = GetTickCount( ) - lastTime ) 
-				 _itow_s( ( nbFrames / ( diff / 1000.0 ) ), buf64, 10 );
+				 _itow_s( int( nbFrames / ( diff / 1000.f ) ), buf64, 10 );
 			// Draw text
 			Tool::MappedMem memHolder = Plain::drawWorks( ctx, buf64 );
 

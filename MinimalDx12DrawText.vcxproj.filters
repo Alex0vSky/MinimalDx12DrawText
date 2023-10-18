@@ -30,11 +30,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MinimalDx12DrawText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\MsvcGenerated\stdafx.cpp">
       <Filter>_pch</Filter>
+    </ClCompile>
+    <ClCompile Include="usage.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
