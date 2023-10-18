@@ -1,4 +1,4 @@
-// src\MinimalDx12DrawText.cpp - entry point
+// src\usage.cpp - entry point
 // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 // @insp DirectXTK12 (apr2023), refacted
 // @insp https://www.shadertoy.com/view/wtB3RG PrzemyslawZaworski
