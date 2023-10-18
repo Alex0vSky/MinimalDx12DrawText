@@ -1,4 +1,4 @@
-// src\Tool\MappedMem.h - refactor GraphicsMemory.h and LinearAllocator.h
+// src\Tool\MappedMem.h - refactor GraphicsMemory.h/*.cpp and LinearAllocator.h/*.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Tool {
 class MappedMem {
@@ -6,10 +6,6 @@ class MappedMem {
 	std::vector< CPtr< ID3D12Resource > > m_holder;
 
  public:
-	// avoid uncorrect unmap
-	MappedMem(MappedMem&) = delete;
-	MappedMem(MappedMem&&) = default;
-	MappedMem() = default;
 	struct Page {
 		void *m_cpuAddress;
 		D3D12_GPU_VIRTUAL_ADDRESS m_gpuAddress;

@@ -1,9 +1,8 @@
 // src\plain_fontWorks.h - refactor ResourceUploadBatch.h
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Plain {
-	Elem::FontData fontWorks(ID3D12Device* device, ID3D12CommandQueue* CommandQueue) {
+	Elem::Context fontWorks(ID3D12Device* device, ID3D12CommandQueue* CommandQueue) {
 		Tool::Hr hr;
-	    static constexpr size_t MaxBatchSize = 2048;
 
 #pragma region Spec::D12::DescriptorHeap
 		CPtr< ID3D12DescriptorHeap > m_pHeap;
@@ -177,9 +176,9 @@ namespace prj_3d::MinimalDx12DrawText::Plain {
 		CD3DX12_RESOURCE_DESC bufferDesc;
 		{
 //		m_spriteBatch = std::make_unique< Spec::D12::SpriteBatch >( device, resourceUpload, pd_ );
-		static_assert((MaxBatchSize * Const::VerticesPerSprite) < USHRT_MAX, "MaxBatchSize too large for 16-bit Indices");
+		static_assert((Const::MaxBatchSize * Const::VerticesPerSprite) < USHRT_MAX, "MaxBatchSize too large for 16-bit Indices");
 		const CD3DX12_HEAP_PROPERTIES heapPropsSpriteBatch(D3D12_HEAP_TYPE_DEFAULT);
-		bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(short) * MaxBatchSize * Const::IndicesPerSprite);
+		bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(short) * Const::MaxBatchSize * Const::IndicesPerSprite);
 		// Create the index buffer.
 		hr = device->CreateCommittedResource(
 			&heapPropsSpriteBatch,
@@ -192,8 +191,8 @@ namespace prj_3d::MinimalDx12DrawText::Plain {
 
 //		std::vector<short> DeviceResources::CreateIndexValues()
 		std::vector<short> indexValues;
-		indexValues.reserve(MaxBatchSize * Const::IndicesPerSprite);
-		for (size_t j = 0; j < MaxBatchSize * Const::VerticesPerSprite; j += Const::VerticesPerSprite) {
+		indexValues.reserve(Const::MaxBatchSize * Const::IndicesPerSprite);
+		for (size_t j = 0; j < Const::MaxBatchSize * Const::VerticesPerSprite; j += Const::VerticesPerSprite) {
 			auto const i = static_cast<short>(j);
 			indexValues.push_back(i);
 			indexValues.push_back(i + 1);
@@ -325,7 +324,8 @@ namespace prj_3d::MinimalDx12DrawText::Plain {
 			throw std::runtime_error("WaitForSingleObject");
 
 		return { 
-				m_pHeap
+				device
+				, m_pHeap
 				, { handleGpu, textureSize }
 				, rootSignatureStatic
 				, mPSO

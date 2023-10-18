@@ -1,4 +1,4 @@
-// src\Tool\SpritesToRender.h - refactor ... .h
+// src\Tool\SpritesToRender.h - refactor SpriteBatch.h/*.cpp and SpriteFont.h/*.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Tool { class SpritesToRender {
 	// Generates vertex data for drawing a single sprite.
@@ -80,6 +80,8 @@ namespace prj_3d::MinimalDx12DrawText::Tool { class SpritesToRender {
 		, Elem::SpriteQueue *spriteQueue
 	) {
 		size_t count = spriteQueue ->count( );
+		if ( !count )
+			return { };
 		// Fill the mSortedSprites vector.
 		std::vector< Elem::SpriteQueue::Info const* > plainSprites = spriteQueue ->toPlain( );
 		// Flush

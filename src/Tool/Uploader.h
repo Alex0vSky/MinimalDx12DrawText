@@ -1,4 +1,4 @@
-// src\Tool\Uploader.h - refactor ResourceUploadBatch.h
+// src\Tool\Uploader.h - refactor ResourceUploadBatch.h/ResourceUploadBatch.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Tool {
 // Only for D3D12_COMMAND_LIST_TYPE_DIRECT and stateBefore = D3D12_RESOURCE_STATE_COPY_DEST

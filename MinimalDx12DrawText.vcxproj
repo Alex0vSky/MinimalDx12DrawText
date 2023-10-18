@@ -48,7 +48,6 @@
     <ClInclude Include="src\Tool\MappedMem.h" />
     <ClInclude Include="src\Tool\SpritesToRender.h" />
     <ClInclude Include="src\Tool\Uploader.h" />
-    <ClInclude Include="src\Version.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\MinimalDx12DrawText.rc" />
@@ -220,7 +219,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MinSpace</Optimization>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -233,7 +232,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeaderFile>MsvcGenerated\stdafx.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>

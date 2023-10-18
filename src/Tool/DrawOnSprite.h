@@ -1,4 +1,4 @@
-// src\Tool\DrawOnSprite.h - refactor ... .h
+// src\Tool\DrawOnSprite.h - refactor SpriteBatch.h/*.cpp and SpriteFont.h/*.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Tool { class DrawOnSprite {
 	Elem::SpriteQueue *m_pSpriteQueue;

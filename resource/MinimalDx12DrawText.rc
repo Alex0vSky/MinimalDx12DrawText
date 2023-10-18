@@ -68,12 +68,12 @@ BEGIN
         BLOCK "000904b0"
         BEGIN
             VALUE "CompanyName", "Alex0vSky github"
-            VALUE "FileDescription", "New emails notifier via IMAP"
+            VALUE "FileDescription", "Minimal Dx12 Draw Text"
             VALUE "ProductVersion", "0.0.0.0"
             VALUE "FileVersion", "0.0.0.0"
             VALUE "InternalName", "MinimalDx12DrawText.exe"
             VALUE "OriginalFilename", "MinimalDx12DrawText.exe"
-            VALUE "ProductName", "Tiny email notifier"
+            VALUE "ProductName", "MinimalDx12DrawText"
         END
     END
     BLOCK "VarFileInfo"

@@ -1,4 +1,4 @@
-// src\Elem\SpriteQueue.h - refactor ... .h
+// src\Elem\SpriteQueue.h - refactor SpriteBatch.h/SpriteBatch.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Elem { class SpriteQueue {
     static constexpr size_t InitialQueueSize = 64;
@@ -43,9 +43,9 @@ namespace prj_3d::MinimalDx12DrawText::Elem { class SpriteQueue {
  public:
 	// Info about a single sprite that is waiting to be drawn.
 #		if (DIRECTX_MATH_VERSION < 315)
-			__declspec( align( 16 ) ) struct
+		__declspec( align( 16 ) ) struct
 #		else
-			 XM_ALIGNED_STRUCT( 16 ) 
+		XM_ALIGNED_STRUCT( 16 ) 
 #		endif
 		Info : public AlignedNew<Info> {
 		XMFLOAT4A source, destination, color, originRotationDepth;

@@ -30,6 +30,7 @@ namespace Tool {
 namespace Const {
     static constexpr size_t VerticesPerSprite = 4;
     static constexpr size_t IndicesPerSprite = 6;
+	static constexpr size_t MaxBatchSize = 2048;
 } // namespace Const
 
 namespace Enum {
@@ -48,8 +49,9 @@ struct FontTexture {
 	XMUINT2 textureSize;
 };
 
-struct FontData {
-	CPtr< ID3D12DescriptorHeap > m_pHeap;
+struct Context {
+	CPtr< ID3D12Device > mDevice;
+	CPtr< ID3D12DescriptorHeap > mHeap;
 	Elem::FontTexture fontTexture;
 	CPtr< ID3D12RootSignature > mRootSignature;
 	CPtr< ID3D12PipelineState > mPSO;
@@ -59,6 +61,8 @@ struct FontData {
 		CPtr< ID3D12Resource > indexBufferHolder;
 		CPtr< ID3D12Resource > textureResourceHolder;
 	} detail_;
+	CPtr< ID3D12GraphicsCommandList > mCommandList;
+	D3D12_VIEWPORT mViewport;
 };
 } // namespace Elem
 } // namespace prj_3d::MinimalDx12DrawText

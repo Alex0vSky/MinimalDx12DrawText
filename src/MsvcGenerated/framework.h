@@ -15,14 +15,13 @@
 #include <stdlib.h>
 #include <malloc.h>
 
-#include <type_traits>
 #include <string>
 #include <stdexcept>
 #include <memory>
 #include <vector>
 #include <algorithm>
 #include <system_error>
-#include <sstream>
+#include <iterator>
 
 
 #pragma warning( disable: 26812 )

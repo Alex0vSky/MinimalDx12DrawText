@@ -1,8 +1,6 @@
 // src\Main.h - code main class, for unittests code coverage
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
-#include "resource.h" // NOLINT(build/include_subdir)
 #include "Tool/Hr.h"
-#include "Version.h"
 using namespace DirectX;
 #include "Elem/VertexTypes.h"
 #include "Elem/Glyph.h"
@@ -103,8 +101,8 @@ struct Main {
 		D3D12_COMMAND_QUEUE_DESC queueDesc = {D3D12_COMMAND_LIST_TYPE_DIRECT, 0, D3D12_COMMAND_QUEUE_FLAG_NONE, 0};
 		mDevice->CreateCommandQueue( &queueDesc, IID_PPV_ARGS(&mCommandQueue));
 
-		// S
-		Elem::FontData fontPod = Plain::fontWorks( mDevice, mCommandQueue );
+		// Prepare draw text context
+		Elem::Context ctx = Plain::fontWorks( mDevice, mCommandQueue );
 
 		DXGI_SWAP_CHAIN_DESC descSwapChain = {
 			DXGI_MODE_DESC{
@@ -198,13 +196,10 @@ struct Main {
 			hr = mCommandAllocator->Reset( );
 			hr = mCommandList->Reset( mCommandAllocator, mPSO);
 			mCommandList->SetGraphicsRootSignature( mRootSignature);
-			float timer = GetTickCount() * 0.001f;
 
-			// NEW
-			static float timerStart = 0;
-			if ( !timerStart )
-				timerStart = GetTickCount() * 0.001f;
-			timer -= timerStart;
+			// Time from start
+			static float timerStart = GetTickCount() * 0.001f;
+			float timer = GetTickCount() * 0.001f - timerStart;
 
 			mCommandList->SetGraphicsRoot32BitConstants( 0,1,&timer,0);
 			mCommandList->RSSetViewports( 1, &mViewport);
@@ -222,15 +217,17 @@ struct Main {
 			mCommandList->IASetVertexBuffers( 0, 1, &mDescViewBufVert);
 			mCommandList->DrawInstanced( 6, 1, 0, 0);
 
-			// S
-			std::wstringstream ss;
-			static float timerPrev = 0;
-			float tmp_milli = (float)GetTickCount( );
-			float diff = ( tmp_milli - timerPrev );
-			ss << L"Time: " << diff;
-			timerPrev = tmp_milli; // ss.str( ).c_str( )
-			Tool::MappedMem memHolder0 = Plain::drawWorks( mDevice, mCommandList, fontPod, &mViewport, L"XX  O\nT" );
-			Tool::MappedMem memHolder1 = Plain::drawWorks( mDevice, mCommandList, fontPod, &mViewport, L"O" );
+			// Text will be: FPS count
+			ctx.mCommandList = mCommandList;
+			ctx.mViewport = mViewport;
+			static float lastTime = (float)GetTickCount( );
+			static int nbFrames = 0;
+			nbFrames++;
+			wchar_t buf64[ 64 + 1 ] = { };
+			if ( float diff = GetTickCount( ) - lastTime ) 
+				 _itow_s( ( nbFrames / ( diff / 1000.0 ) ), buf64, 10 );
+			// Draw text
+			Tool::MappedMem memHolder = Plain::drawWorks( ctx, buf64 );
 
 			D3D12_RESOURCE_BARRIER barrierRTForPresent = {(D3D12_RESOURCE_BARRIER_TYPE)0, (D3D12_RESOURCE_BARRIER_FLAGS)0,{ mRenderTarget[mframeIndex], D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT }};
 			mCommandList->ResourceBarrier( 1, &barrierRTForPresent);

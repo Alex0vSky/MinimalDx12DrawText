@@ -2,23 +2,23 @@
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Plain {
 	Tool::MappedMem drawWorks(
-		ID3D12Device* device
-		, CPtr< ID3D12GraphicsCommandList > commandList
-		, const Elem::FontData &input
-		, D3D12_VIEWPORT *mViewport
+		const Elem::Context &input
 		, const wchar_t *text
+		, FXMVECTOR color = DirectX::Colors::White
+		, FXMVECTOR position = { 0, 0 }
 	) {
-		ID3D12DescriptorHeap* heaps[] = { input.m_pHeap.Get( ) };
-		commandList ->SetDescriptorHeaps(
+		if ( !wcsnlen_s( text, Const::MaxBatchSize ) )
+			return { };
+
+		ID3D12DescriptorHeap* heaps[] = { input.mHeap.Get( ) };
+		input.mCommandList ->SetDescriptorHeaps(
 				static_cast< UINT >( std::size( heaps ) )
 				, heaps
 			);
 
-		FXMVECTOR position = { 0, 0 };
-		FXMVECTOR color = DirectX::Colors::Blue;
 		float rotation = 0.f;
 		FXMVECTOR baseOffset = DirectX::g_XMZero;
-		GXMVECTOR scale = DirectX::XMVectorReplicate( 2 );
+		GXMVECTOR scale = DirectX::XMVectorReplicate( 1 );
 		float layerDepth = 0;
 
 		Elem::SpriteQueue spriteQueue;
@@ -39,15 +39,13 @@ namespace prj_3d::MinimalDx12DrawText::Plain {
 				, layerDepth
 			);
 		// Prepare
-		commandList ->IASetPrimitiveTopology( D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
-		commandList ->SetGraphicsRootSignature( input.mRootSignature.Get( ) );
-		commandList ->SetPipelineState( input.mPSO.Get( ) );
-		commandList ->IASetIndexBuffer( &input.indexBufferView );
-		if ( !mViewport )
-			throw std::runtime_error( "Viewport not set." );
+		input.mCommandList ->IASetPrimitiveTopology( D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
+		input.mCommandList ->SetGraphicsRootSignature( input.mRootSignature.Get( ) );
+		input.mCommandList ->SetPipelineState( input.mPSO.Get( ) );
+		input.mCommandList ->IASetIndexBuffer( &input.indexBufferView );
 		// Compute the matrix.
-		const float xScale = (mViewport ->Width > 0) ? 2.0f / mViewport ->Width : 0.0f;
-		const float yScale = (mViewport ->Height > 0) ? 2.0f / mViewport ->Height : 0.0f;
+		const float xScale = (input.mViewport.Width > 0) ? 2.0f / input.mViewport.Width : 0.0f;
+		const float yScale = (input.mViewport.Height > 0) ? 2.0f / input.mViewport.Height : 0.0f;
 		// Set the transform matrix, DXGI_MODE_ROTATION_IDENTITY
 		XMMATRIX transformMatrix = XMMATRIX
 		{
@@ -58,20 +56,20 @@ namespace prj_3d::MinimalDx12DrawText::Plain {
 		};
 
 		Tool::MappedMem mappedMem;
-		Tool::MappedMem::Page page1 = mappedMem.getNewPage( device, L"ConstantBuffer" );
+		Tool::MappedMem::Page page1 = mappedMem.getNewPage( input.mDevice.Get( ), L"ConstantBuffer" );
 		memcpy( page1.m_cpuAddress, &transformMatrix, sizeof( transformMatrix )  );
-		commandList ->SetGraphicsRootConstantBufferView( Enum::RootParameterIndex::ConstantBuffer, page1.m_gpuAddress );
-		Tool::MappedMem::Page page2 = mappedMem.getNewPage( device, L"Vertices" );
+		input.mCommandList ->SetGraphicsRootConstantBufferView( Enum::RootParameterIndex::ConstantBuffer, page1.m_gpuAddress );
+		Tool::MappedMem::Page page2 = mappedMem.getNewPage( input.mDevice.Get( ), L"Vertices" );
 		Tool::SpritesToRender::PreparedVertices vertices = Tool::SpritesToRender::makeVertices( page2, &spriteQueue );
 
 		// Draw using the specified texture. **NOTE** If D3D asserts or crashes here, you probably need to call commandList->SetDescriptorHeaps() with the required descriptor heap(s)
-		commandList ->SetGraphicsRootDescriptorTable( Enum::RootParameterIndex::TextureSRV, spriteQueue.textureHandleHead( ) );
+		input.mCommandList ->SetGraphicsRootDescriptorTable( Enum::RootParameterIndex::TextureSRV, spriteQueue.textureHandleHead( ) );
 		// Set the vertex buffer view
-		commandList ->IASetVertexBuffers( 0, 1, &vertices.vbv );
+		input.mCommandList ->IASetVertexBuffers( 0, 1, &vertices.vbv );
 		// Ok lads, the time has come for us draw ourselves some sprites!
 		const UINT indexCount = static_cast<UINT>( vertices.batchSize * Const::IndicesPerSprite );
-		commandList ->DrawIndexedInstanced( indexCount, 1, 0, 0, 0 );
+		input.mCommandList ->DrawIndexedInstanced( indexCount, 1, 0, 0, 0 );
 
-		return std::move( mappedMem );
+		return mappedMem;
 	}
 } // namespace prj_3d::MinimalDx12DrawText

@@ -1,4 +1,4 @@
-// src\Elem\Glyph.h - refactor SpriteFont.h
+// src\Elem\Glyph.h - refactor SpriteFont.h/SpriteFont.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Elem {
 class Glyph {

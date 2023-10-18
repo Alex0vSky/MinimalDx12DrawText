@@ -1,4 +1,4 @@
-// src\Tool\BinaryReader.h - refactor BinaryReader.h
+// src\Tool\BinaryReader.h - refactor BinaryReader.h/BinaryReader.cpp
 #pragma once // Copyright 2023 Alex0vSky (https://github.com/Alex0vSky)
 namespace prj_3d::MinimalDx12DrawText::Tool {
 class BinaryReader {
