@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\MsvcGenerated">
+      <UniqueIdentifier>{145513ed-a132-40bd-a4dc-74470f45f55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_pch">
+      <UniqueIdentifier>{83c8ee4b-eba3-4316-8cfc-edd38c802025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shader">
+      <UniqueIdentifier>{eb143f92-0cb9-4e2a-a720-012fc3c6c53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shader\DirectXTK12-apr2023">
+      <UniqueIdentifier>{33cee602-2a39-4172-9505-bb1a6259f0aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DxtkFont">
+      <UniqueIdentifier>{5fc53030-ffae-49b8-9352-67a5ee52182a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\MinimalDx12DrawText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MsvcGenerated\stdafx.cpp">
+      <Filter>_pch</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files\MsvcGenerated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MsvcGenerated\framework.h">
+      <Filter>Header Files\MsvcGenerated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MsvcGenerated\targetver.h">
+      <Filter>Header Files\MsvcGenerated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MsvcGenerated\stdafx.h">
+      <Filter>_pch</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plain_fontWorks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plain_drawWorks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Elem\VertexTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Elem\Glyph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Elem\SpriteQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Elem\DxtkFont\CompiledToBinary.h">
+      <Filter>Header Files\DxtkFont</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\MappedMem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\SpritesToRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\Uploader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\BinaryReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\DrawOnSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tool\Hr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Elem\PipelineStateDescription.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\MinimalDx12DrawText.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="resource\pixel.hlsl">
+      <Filter>Resource Files\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="resource\vertex.hlsl">
+      <Filter>Resource Files\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="resource\ShadersDirectXTK12-apr2023\SpriteEffect.fx">
+      <Filter>Resource Files\shader\DirectXTK12-apr2023</Filter>
+    </FxCompile>
+    <FxCompile Include="resource\ShadersDirectXTK12-apr2023\SpriteEffect_SpritePixelShader.hlsl">
+      <Filter>Resource Files\shader\DirectXTK12-apr2023</Filter>
+    </FxCompile>
+    <FxCompile Include="resource\ShadersDirectXTK12-apr2023\SpriteEffect_SpriteVertexShader.hlsl">
+      <Filter>Resource Files\shader\DirectXTK12-apr2023</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
